@@ -10,11 +10,10 @@ import org.springframework.stereotype.Component
 class ActorClient {
 
     @Autowired
-    private var actorRefFactory: ActorRefFactory = _
+    private var hiActorRef: ActorRef = _
 
     @PostConstruct
     def afterPropertiesSet(): Unit = {
-        val ref: ActorRef = actorRefFactory.getActorRef("hiActor")
-        ref ! "saySomething"
+        hiActorRef ! "saySomething"
     }
 }
