@@ -21,4 +21,5 @@ dependencies {
     compile('org.scala-lang:scala-compiler:2.11.1')
     compile("org.springframework.boot:spring-boot-starter-web:1.2.0.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-actuator:1.2.0.RELEASE")
+    compile("com.typesafe.akka:akka-actor_2.11:2.3.7")
 }
