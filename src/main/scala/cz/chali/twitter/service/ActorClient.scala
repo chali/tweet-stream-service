@@ -12,8 +12,11 @@ class ActorClient {
     @Autowired
     private var hiActorRef: ActorRef = _
 
+    @Autowired
+    private var twitterClientActorRef: ActorRef = _
+
     @PostConstruct
     def afterPropertiesSet(): Unit = {
-        hiActorRef ! "saySomething"
+        twitterClientActorRef ! TwitterClientRequest(hiActorRef)
     }
 }
