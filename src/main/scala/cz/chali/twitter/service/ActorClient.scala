@@ -13,10 +13,10 @@ class ActorClient {
     private var hiActorRef: ActorRef = _
 
     @Autowired
-    private var twitterClientActorRef: ActorRef = _
+    private var twitterStreamHandlerActorRef: ActorRef = _
 
     @PostConstruct
     def afterPropertiesSet(): Unit = {
-        twitterClientActorRef ! TwitterClientRequest(hiActorRef)
+        twitterStreamHandlerActorRef ! OpenStream(hiActorRef)
     }
 }

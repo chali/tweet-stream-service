@@ -3,8 +3,8 @@ package cz.chali.twitter.service
 import akka.actor.Actor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
+import org.springframework.social.twitter.api.Tweet
 import org.springframework.stereotype.Component
-import spray.http.HttpResponse
 
 @Component
 @Scope("prototype")
@@ -15,7 +15,7 @@ class HiActor extends Actor {
 
     override def receive: Receive = {
         case text: String => hiService.say(text)
-        case response: HttpResponse =>
-            print(response.message)
+        case response: Tweet =>
+            print(response.getText)
     }
 }

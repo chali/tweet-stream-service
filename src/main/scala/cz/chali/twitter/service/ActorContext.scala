@@ -15,7 +15,7 @@ class ActorContext {
     }
 
     @Bean
-    def twitterClientActorRef(): ActorRef = {
-        actorRefFactory.getActorRef("twitterClientActor")
+    def twitterStreamHandlerActorRef(): ActorRef = {
+        actorRefFactory.getActorRef("twitterStreamHandlerActor")
     }
 }
