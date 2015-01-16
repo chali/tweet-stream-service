@@ -1,6 +1,5 @@
 package cz.chali.twitter.service
 
-import akka.actor.ActorRef
 import akka.stream.actor.ActorPublisher
 import org.reactivestreams.Publisher
 import org.springframework.beans.factory.annotation.Autowired
