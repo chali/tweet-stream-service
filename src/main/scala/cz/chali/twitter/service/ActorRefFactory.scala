@@ -13,7 +13,8 @@ class ActorRefFactory {
     @Autowired
     private var actorSystem: ActorSystem = _
 
-    def getActorRef(actorBeanName: String): ActorRef = actorSystem.actorOf(props(actorBeanName))
+    def getActorRef(actorBeanName: String, args: Seq[Any]): ActorRef = actorSystem.actorOf(props(actorBeanName, args))
 
-    private def props(actorBeanName: String): Props = Props(classOf[SpringActorProducer], applicationContext, actorBeanName)
+    private def props(actorBeanName: String, args: Seq[Any]): Props =
+        Props(classOf[SpringActorProducer], applicationContext, actorBeanName, args)
 }

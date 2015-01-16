@@ -1,8 +1,11 @@
 package cz.chali.twitter.service
 
 import akka.actor.ActorRef
+import akka.stream.actor.ActorPublisher
+import org.reactivestreams.Publisher
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.{Bean, Configuration}
+import org.springframework.social.twitter.api.Tweet
 
 @Configuration
 class ActorContext {
@@ -10,12 +13,7 @@ class ActorContext {
     var actorRefFactory: ActorRefFactory = _
 
     @Bean
-    def hiActorRef(): ActorRef = {
-        actorRefFactory.getActorRef("hiActor")
-    }
-
-    @Bean
-    def twitterStreamHandlerActorRef(): ActorRef = {
-        actorRefFactory.getActorRef("twitterStreamHandlerActor")
+    def twitterStreamPublisher(): Publisher[Tweet] = {
+        ActorPublisher(actorRefFactory.getActorRef("twitterStreamHandlerActor", Seq("twitter")))
     }
 }

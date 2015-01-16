@@ -23,4 +23,5 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator:1.2.0.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-social-twitter:1.2.0.RELEASE")
     compile("com.typesafe.akka:akka-actor_2.11:2.3.8")
+    compile("com.typesafe.akka:akka-stream-experimental_2.11:1.0-M2")
 }
