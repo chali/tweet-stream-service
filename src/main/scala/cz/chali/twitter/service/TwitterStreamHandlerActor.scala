@@ -4,7 +4,6 @@ import akka.stream.actor.ActorPublisher
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.social.twitter.api._
-import org.springframework.social.twitter.api.impl.TwitterTemplate
 import org.springframework.stereotype.Component
 import scala.collection.JavaConverters._
 
@@ -15,7 +14,7 @@ private case class NewTweet(tweet: Tweet)
 class TwitterStreamHandlerActor(keywords: String) extends ActorPublisher[Tweet] {
 
     @Autowired
-    private var properties: TwitterSecurityProperties = _
+    private var streamingOperations: StreamingOperations = _
 
     private var stream: Stream = _
 
@@ -34,10 +33,7 @@ class TwitterStreamHandlerActor(keywords: String) extends ActorPublisher[Tweet] 
                 self ! NewTweet(tweet)
             }
         })
-        val twitter: Twitter = new TwitterTemplate(
-            properties.getAppId, properties.getAppSecret,
-            properties.getAccessToken, properties.getAccessTokenSecret)
-        stream = twitter.streamingOperations().filter(keywords, listeners.asJava)
+        stream = streamingOperations.filter(keywords, listeners.asJava)
     }
 
     @throws[Exception](classOf[Exception])
