@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Scope
 import org.springframework.social.twitter.api.Tweet
 import org.springframework.stereotype.Component
 
-case class StartFlow(keywords: String)
+case class StartFlow(keywords: String, languageCodes: List[String])
 
 @Component
 @Scope("prototype")
@@ -19,9 +19,14 @@ class TweetStreamFlowActor extends Actor {
     @Autowired
     var springAwarePropsFactory: SpringAwarePropsFactory = _
 
+    val materializer = FlowMaterializer()(context)
+
     override def receive: Receive = {
-        case StartFlow(keywords) =>
-            twitterStreamPublisher(keywords).subscribe(consoleStreamSubscriber())
+        case StartFlow(keywords, languageCodes) =>
+            Source(twitterStreamPublisher(keywords))
+                .filter(tweet => languageCodes.contains(tweet.getLanguageCode))
+                .to(Sink(consoleStreamSubscriber()))
+                .run()(materializer)
     }
 
     def twitterStreamPublisher(keywords: String): Publisher[Tweet] =
