@@ -13,6 +13,7 @@ Reaktive Streams
 
 
 TODO
+add tests
 register stream for keyword api (router feature, test cluster support), api might be also queue
 some queue subscriber
 final build as docker image
