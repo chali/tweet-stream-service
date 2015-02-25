@@ -1,20 +1,17 @@
 package cz.chali.twitter.service
 
 import akka.actor._
+import akka.routing.FromConfig
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Component
 
 @Component
-class ActorRefFactory {
+class SpringAwarePropsFactory {
 
     @Autowired
     private var applicationContext: ApplicationContext = _
-    @Autowired
-    private var actorSystem: ActorSystem = _
 
-    def getActorRef(actorBeanName: String, args: Seq[Any]): ActorRef = actorSystem.actorOf(props(actorBeanName, args))
-
-    private def props(actorBeanName: String, args: Seq[Any]): Props =
+    def props(actorBeanName: String, args: Seq[Any] = Seq()): Props =
         Props(classOf[SpringActorProducer], applicationContext, actorBeanName, args)
 }
