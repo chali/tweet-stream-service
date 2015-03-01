@@ -14,7 +14,7 @@ private case class NewTweet(tweet: Tweet)
 class TwitterStreamHandlerActor(keywords: String) extends ActorPublisher[Tweet] {
 
     @Autowired
-    private var streamingOperations: StreamingOperations = _
+    var streamingOperations: StreamingOperations = _
 
     private var stream: Stream = _
 

@@ -1,8 +1,8 @@
 package cz.chali.twitter.service
 
 import akka.actor.Actor
+import akka.stream.ActorFlowMaterializer
 import akka.stream.actor.{ActorPublisher, ActorSubscriber}
-import akka.stream.FlowMaterializer
 import akka.stream.scaladsl.{Sink, Source}
 import org.reactivestreams.{Publisher, Subscriber}
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,7 +19,7 @@ class TweetStreamFlowActor extends Actor {
     @Autowired
     var springAwarePropsFactory: SpringAwarePropsFactory = _
 
-    val materializer = FlowMaterializer()(context)
+    val materializer = ActorFlowMaterializer()(context)
 
     override def receive: Receive = {
         case StartFlow(keywords, languageCodes) =>
