@@ -4,11 +4,13 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.0.RELEASE")
+        classpath "com.github.maiflai:gradle-scalatest:0.6-5-g9065d91"
     }
 }
 
 apply plugin: 'spring-boot'
 apply plugin: 'scala'
+apply plugin: "com.github.maiflai.scalatest"
 
 version = '1.0'
 
@@ -28,4 +30,5 @@ dependencies {
     testCompile("org.scalatest:scalatest_2.11:2.2.1")
     testCompile("com.typesafe.akka:akka-testkit_2.11:2.3.9")
     testCompile("org.mockito:mockito-all:1.10.19")
+    testRuntime 'org.pegdown:pegdown:1.1.0'
 }
