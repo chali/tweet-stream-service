@@ -1,7 +1,6 @@
 package cz.chali.twitter.service
 
 import akka.actor.Actor
-import akka.stream.ActorFlowMaterializer
 import akka.stream.actor.{ActorPublisher, ActorSubscriber}
 import akka.stream.scaladsl.{Sink, Source}
 import org.reactivestreams.{Publisher, Subscriber}
@@ -18,15 +17,16 @@ class TweetStreamFlowActor extends Actor {
 
     @Autowired
     var springAwarePropsFactory: SpringAwarePropsFactory = _
-
-    val materializer = ActorFlowMaterializer()(context)
+    @Autowired
+    var flowRunner: FlowRunner = _
 
     override def receive: Receive = {
         case StartFlow(keywords, languageCodes) =>
-            Source(twitterStreamPublisher(keywords))
+            val flow = Source(twitterStreamPublisher(keywords))
                 .filter(tweet => languageCodes.contains(tweet.getLanguageCode))
                 .to(Sink(consoleStreamSubscriber()))
-                .run()(materializer)
+            flowRunner.run(flow, context)
+
     }
 
     def twitterStreamPublisher(keywords: String): Publisher[Tweet] =

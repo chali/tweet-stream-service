@@ -23,7 +23,7 @@ class TwitterStreamHandlerActorTest(_system: ActorSystem) extends TestKit(_syste
 
     "An Actor" when {
         "created" should {
-            "open stream and receive new tweets" in {
+            "open stream, receive new tweets and close stream on stop" in {
                 val keywords = "twitter"
                 val expectedTweet = mock[Tweet]
                 val stream = mock[Stream]
@@ -39,7 +39,7 @@ class TwitterStreamHandlerActorTest(_system: ActorSystem) extends TestKit(_syste
                 })
 
                 val resultFuture: Future[Tweet] = Source(ActorPublisher(actorRef))
-                    .runWith(Sink.head[Tweet]())(ActorFlowMaterializer()(_system))
+                    .runWith(Sink.head[Tweet]())(ActorFlowMaterializer()(system))
 
                 val listener = listeners.getValue.get(0)
                 listener.onTweet(expectedTweet)
