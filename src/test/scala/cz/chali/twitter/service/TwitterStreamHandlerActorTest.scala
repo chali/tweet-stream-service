@@ -1,16 +1,20 @@
 package cz.chali.twitter.service
 
+import scala.concurrent.duration._
 import akka.actor.ActorSystem
+import akka.stream.ActorFlowMaterializer
 import akka.stream.actor.ActorPublisher
+import akka.stream.scaladsl.{Sink, Source}
 import akka.testkit.{TestActorRef, TestKit}
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers._
 import org.mockito.Matchers.{eq => mockEq}
 import org.mockito.Mockito._
-import org.reactivestreams.{Subscription, Subscriber}
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 import org.springframework.social.twitter.api._
+
+import scala.concurrent.{Await, Future}
 
 class TwitterStreamHandlerActorTest(_system: ActorSystem) extends TestKit(_system)
     with WordSpecLike with Matchers with MockitoSugar with BeforeAndAfterAll {
@@ -21,6 +25,7 @@ class TwitterStreamHandlerActorTest(_system: ActorSystem) extends TestKit(_syste
         "created" should {
             "open stream and receive new tweets" in {
                 val keywords = "twitter"
+                val expectedTweet = mock[Tweet]
                 val stream = mock[Stream]
                 val streamingOperations = mock[StreamingOperations]
                 val listeners = ArgumentCaptor.forClass(classOf[java.util.List[StreamListener]])
@@ -33,28 +38,17 @@ class TwitterStreamHandlerActorTest(_system: ActorSystem) extends TestKit(_syste
                     actor
                 })
 
-                val tweet = mock[Tweet]
-                var tweetSubscribed = false
-
-                ActorPublisher(actorRef).subscribe(new Subscriber[Tweet]() {
-                    override def onSubscribe(s: Subscription): Unit = s.request(1)
-
-                    override def onError(t: Throwable): Unit = {}
-
-                    override def onComplete(): Unit = {}
-
-                    override def onNext(t: Tweet): Unit = {
-                        t shouldBe tweet
-                        tweetSubscribed = true
-                    }
-                })
+                val resultFuture: Future[Tweet] = Source(ActorPublisher(actorRef))
+                    .runWith(Sink.head[Tweet]())(ActorFlowMaterializer()(_system))
 
                 val listener = listeners.getValue.get(0)
-                listener.onTweet(tweet)
+                listener.onTweet(expectedTweet)
+
+                val actualTweet = Await.result(resultFuture, 3 seconds)
 
                 actorRef.stop()
 
-                tweetSubscribed shouldBe true
+                actualTweet shouldBe expectedTweet
                 verify(streamingOperations).filter(mockEq(keywords), anyListOf(classOf[StreamListener]))
                 verify(stream, times(1)).close()
             }
