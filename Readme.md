@@ -5,11 +5,11 @@ Current purpose of this repository is playground for me. I try combine couple of
 Current feature is open stream of tweets based on keyword filter a and subscribe system output subscriber for this stream.
 
 Technologies:
-Gradle
-Scala
-Spring Boot
-Akka
-Reaktive Streams
+* Gradle
+* Scala
+* Spring Boot
+* Akka
+* Reactive Streams
 
 
 TODO
