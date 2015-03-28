@@ -5,17 +5,29 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.0.RELEASE")
         classpath "com.github.maiflai:gradle-scalatest:0.6-5-g9065d91"
+        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
 apply plugin: 'spring-boot'
 apply plugin: 'scala'
 apply plugin: "com.github.maiflai.scalatest"
+apply plugin: 'docker'
 
 version = '1.0'
 
 repositories {
     jcenter()
+}
+
+docker {
+    baseImage = "dockerfile/java:oracle-java8"
+    maintainer = "Martin Chalupa <chalimartines@gmail.com>"
+    // I'm Mac user and this is workaround with locally not accessible docker
+    // you have to use $(docker run sequenceiq/socat) to create proxy
+    // because new docker api is not accessible through http
+    useApi true
+    hostUrl 'http://192.168.59.103:2375'
 }
 
 dependencies {

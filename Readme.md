@@ -17,5 +17,5 @@ TODO
     * collisions in mockito and scala test matchers
 * register stream for keyword api (router feature, test cluster support), api might be also queue
 * some queue subscriber
-* integrate docker with gradle build
+* docker plugin create suspicious containers during build
 * how to add external configuration
