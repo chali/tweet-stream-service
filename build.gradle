@@ -23,11 +23,6 @@ repositories {
 docker {
     baseImage = "dockerfile/java:oracle-java8"
     maintainer = "Martin Chalupa <chalimartines@gmail.com>"
-    // I'm Mac user and this is workaround with locally not accessible docker
-    // you have to use $(docker run sequenceiq/socat) to create proxy
-    // because new docker api is not accessible through http
-    useApi true
-    hostUrl 'http://192.168.59.103:2375'
 }
 
 dependencies {
