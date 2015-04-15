@@ -1,4 +1,4 @@
-#Twitter Service
+#Twitter Service [![Build Status](https://drone.io/github.com/chali/twitter-service/status.png)](https://drone.io/github.com/chali/twitter-service/latest)
 
 Current purpose of this repository is playground for me. I try combine couple of frameworks and technology. How they play well together. Later I might add some other services.
 
