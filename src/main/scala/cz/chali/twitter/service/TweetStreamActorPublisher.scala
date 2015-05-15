@@ -11,7 +11,7 @@ private case class NewTweet(tweet: Tweet)
 
 @Component
 @Scope("prototype")
-class TwitterStreamHandlerActor(keywords: String) extends ActorPublisher[Tweet] {
+class TweetStreamActorPublisher(keywords: String) extends ActorPublisher[Tweet] {
 
     @Autowired
     var streamingOperations: StreamingOperations = _

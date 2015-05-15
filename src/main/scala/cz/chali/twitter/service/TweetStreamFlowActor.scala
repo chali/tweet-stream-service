@@ -31,7 +31,7 @@ class TweetStreamFlowActor extends Actor {
 
     def twitterStreamPublisher(keywords: String): Publisher[Tweet] =
         ActorPublisher(
-            context.actorOf(springAwarePropsFactory.props("twitterStreamHandlerActor", Seq(keywords)))
+            context.actorOf(springAwarePropsFactory.props("tweetStreamActorPublisher", Seq(keywords)))
         )
 
     def consoleStreamSubscriber(): Subscriber[Tweet] =

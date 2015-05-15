@@ -16,7 +16,7 @@ import org.springframework.social.twitter.api._
 
 import scala.concurrent.{Await, Future}
 
-class TwitterStreamHandlerActorTest(_system: ActorSystem) extends TestKit(_system)
+class TweetStreamActorPublisherTest(_system: ActorSystem) extends TestKit(_system)
     with WordSpecLike with Matchers with MockitoSugar with BeforeAndAfterAll {
 
     def this() = this(ActorSystem("testSystem"))
@@ -33,7 +33,7 @@ class TwitterStreamHandlerActorTest(_system: ActorSystem) extends TestKit(_syste
                 when(streamingOperations.filter(mockEq(keywords), listeners.capture())).thenReturn(stream)
 
                 val actorRef = TestActorRef({
-                    val actor: TwitterStreamHandlerActor = new TwitterStreamHandlerActor(keywords)
+                    val actor: TweetStreamActorPublisher = new TweetStreamActorPublisher(keywords)
                     actor.streamingOperations = streamingOperations
                     actor
                 })
