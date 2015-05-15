@@ -1,10 +1,12 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.flow
 
 import akka.stream.actor.ActorPublisher
+import cz.chali.twitter.service.client.DefaultStreamListener
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.social.twitter.api._
 import org.springframework.stereotype.Component
+
 import scala.collection.JavaConverters._
 
 private case class NewTweet(tweet: Tweet)

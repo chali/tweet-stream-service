@@ -1,4 +1,4 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.client
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component

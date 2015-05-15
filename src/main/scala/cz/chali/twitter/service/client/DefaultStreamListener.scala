@@ -1,6 +1,6 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.client
 
-import org.springframework.social.twitter.api.{Tweet, StreamWarningEvent, StreamDeleteEvent, StreamListener}
+import org.springframework.social.twitter.api.{StreamDeleteEvent, StreamListener, StreamWarningEvent, Tweet}
 
 class DefaultStreamListener extends StreamListener {
     override def onTweet(tweet: Tweet): Unit = {}

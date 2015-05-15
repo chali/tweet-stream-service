@@ -1,7 +1,8 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.flow
 
 import akka.actor.ActorRefFactory
 import akka.stream.actor.ActorPublisher
+import cz.chali.twitter.service.spring.SpringAwarePropsFactory
 import org.reactivestreams.Publisher
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.social.twitter.api.Tweet

@@ -1,9 +1,10 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.flow
 
 import javax.annotation.PostConstruct
 
-import akka.actor.{ActorSystem, ActorRef}
+import akka.actor.{ActorRef, ActorSystem}
 import akka.routing.FromConfig
+import cz.chali.twitter.service.spring.SpringAwarePropsFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 

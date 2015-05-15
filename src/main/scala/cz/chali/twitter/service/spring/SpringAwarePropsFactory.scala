@@ -1,7 +1,6 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.spring
 
 import akka.actor._
-import akka.routing.FromConfig
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Component

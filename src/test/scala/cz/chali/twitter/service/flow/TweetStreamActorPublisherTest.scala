@@ -1,19 +1,18 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.flow
 
-import scala.concurrent.duration._
 import akka.actor.ActorSystem
 import akka.stream.ActorFlowMaterializer
 import akka.stream.actor.ActorPublisher
 import akka.stream.scaladsl.{Sink, Source}
 import akka.testkit.{TestActorRef, TestKit}
 import org.mockito.ArgumentCaptor
-import org.mockito.Matchers._
-import org.mockito.Matchers.{eq => mockEq}
+import org.mockito.Matchers.{eq => mockEq, _}
 import org.mockito.Mockito._
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 import org.springframework.social.twitter.api._
 
+import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
 class TweetStreamActorPublisherTest(_system: ActorSystem) extends TestKit(_system)

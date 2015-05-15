@@ -1,7 +1,7 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.flow
 
 import akka.stream.actor.ActorSubscriberMessage.OnNext
-import akka.stream.actor.{WatermarkRequestStrategy, RequestStrategy, ActorSubscriber}
+import akka.stream.actor.{ActorSubscriber, RequestStrategy, WatermarkRequestStrategy}
 import org.springframework.context.annotation.Scope
 import org.springframework.social.twitter.api.Tweet
 import org.springframework.stereotype.Component

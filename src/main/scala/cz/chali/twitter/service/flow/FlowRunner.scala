@@ -1,4 +1,4 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.flow
 
 import akka.actor.ActorRefFactory
 import akka.stream.ActorFlowMaterializer

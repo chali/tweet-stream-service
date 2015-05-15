@@ -1,4 +1,4 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.spring
 
 import akka.actor.{Actor, IndirectActorProducer}
 import org.springframework.context.ApplicationContext

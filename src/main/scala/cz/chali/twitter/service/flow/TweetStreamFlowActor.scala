@@ -1,12 +1,9 @@
-package cz.chali.twitter.service
+package cz.chali.twitter.service.flow
 
 import akka.actor.Actor
-import akka.stream.actor.{ActorPublisher, ActorSubscriber}
 import akka.stream.scaladsl.{Sink, Source}
-import org.reactivestreams.{Publisher, Subscriber}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
-import org.springframework.social.twitter.api.Tweet
 import org.springframework.stereotype.Component
 
 case class StartFlow(keywords: String, languageCodes: List[String])
