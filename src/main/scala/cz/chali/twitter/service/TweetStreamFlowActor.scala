@@ -16,24 +16,17 @@ case class StartFlow(keywords: String, languageCodes: List[String])
 class TweetStreamFlowActor extends Actor {
 
     @Autowired
-    var springAwarePropsFactory: SpringAwarePropsFactory = _
+    var tweetPublisherFactory: TweetPublisherFactory = _
+    @Autowired
+    var tweetSubscriberFactory: TweetSubscriberFactory = _
     @Autowired
     var flowRunner: FlowRunner = _
 
     override def receive: Receive = {
         case StartFlow(keywords, languageCodes) =>
-            val flow = Source(twitterStreamPublisher(keywords))
+            val flow = Source(tweetPublisherFactory.create(keywords))
                 .filter(tweet => languageCodes.contains(tweet.getLanguageCode))
-                .to(Sink(consoleStreamSubscriber()))
+                .to(Sink(tweetSubscriberFactory.create))
             flowRunner.run(flow, context)
-
     }
-
-    def twitterStreamPublisher(keywords: String): Publisher[Tweet] =
-        ActorPublisher(
-            context.actorOf(springAwarePropsFactory.props("tweetStreamActorPublisher", Seq(keywords)))
-        )
-
-    def consoleStreamSubscriber(): Subscriber[Tweet] =
-        ActorSubscriber(context.actorOf(springAwarePropsFactory.props("consoleActorSubscriber")))
 }
