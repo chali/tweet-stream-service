@@ -3,15 +3,15 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.0.RELEASE")
-        classpath "com.github.maiflai:gradle-scalatest:0.6-5-g9065d91"
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.0.RELEASE')
+        classpath('com.github.maiflai:gradle-scalatest:0.6-5-g9065d91')
         classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
 apply plugin: 'spring-boot'
 apply plugin: 'scala'
-apply plugin: "com.github.maiflai.scalatest"
+apply plugin: 'com.github.maiflai.scalatest'
 apply plugin: 'docker'
 
 version = '1.0'
@@ -21,23 +21,37 @@ repositories {
 }
 
 docker {
-    baseImage = "dockerfile/java:oracle-java8"
-    maintainer = "Martin Chalupa <chalimartines@gmail.com>"
+    baseImage = 'dockerfile/java:oracle-java8'
+    maintainer = 'Martin Chalupa <chalimartines@gmail.com>'
+}
+
+configurations {
+    all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    all*.exclude group: 'log4j', module: 'log4j'
 }
 
 dependencies {
     compile('org.scala-lang:scala-library:2.11.1')
     compile('org.scala-lang:scala-compiler:2.11.1')
-    compile("org.springframework.boot:spring-boot-starter-web:1.2.0.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-actuator:1.2.0.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-social-twitter:1.2.0.RELEASE")
-    compile("com.typesafe.akka:akka-actor_2.11:2.3.9")
-    compile("com.typesafe.akka:akka-stream-experimental_2.11:1.0-M4")
+    compile('org.springframework.boot:spring-boot-starter-web:1.2.0.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-actuator:1.2.0.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-social-twitter:1.2.0.RELEASE')
+    compile('com.typesafe.akka:akka-actor_2.11:2.3.9')
+    compile('com.typesafe.akka:akka-stream-experimental_2.11:1.0-M4')
+    compile('org.apache.kafka:kafka_2.11:0.8.2.0-cp')
+    compile('io.confluent:kafka-avro-serializer:1.0')
 
-    testCompile("org.scalatest:scalatest_2.11:2.2.1")
-    testCompile("com.typesafe.akka:akka-testkit_2.11:2.3.9")
-    testCompile("org.mockito:mockito-all:1.10.19")
-    testRuntime 'org.pegdown:pegdown:1.1.0'
+    testCompile('org.scalatest:scalatest_2.11:2.2.1')
+    testCompile('com.typesafe.akka:akka-testkit_2.11:2.3.9')
+    testCompile('org.mockito:mockito-all:1.10.19')
+    testRuntime('org.pegdown:pegdown:1.1.0')
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://packages.confluent.io/maven/'
+    }
 }
 
 task wrapper(type: Wrapper) {
