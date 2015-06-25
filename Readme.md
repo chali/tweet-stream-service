@@ -11,8 +11,14 @@ Technologies:
 * Akka
 * Reactive Streams
 
+##Twitter credentials
+You can add external application.properties file following this [Description](http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-application-property-files). Property file has to contain those properties.
+
+    spring.social.twitter.app-id= #put your value
+    spring.social.twitter.app-secret= #put your value
+    spring.social.twitter.access-token= #put your value
+    spring.social.twitter.access-token-secret= #put your value
 
 TODO
 * register stream for keyword api (router feature, verify cluster support), api might be also queue
 * some queue subscriber
-* how to add external configuration
